@@ -3,6 +3,39 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from "redux"
+
+// Action 
+const petIncrement = () => {
+  return {
+    type: "PET_INCREASED"
+  }
+}
+
+const petDecrement = () => {
+  return {
+    type: "PET_DECREASED"
+  }
+}
+
+// Reducer
+const petCounter = (state = 0, action) => {
+  switch (action.type) {
+    case "PET_INCREASED":
+      return state + 1;
+    case "PET_DECREASED":
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+let store = createStore(petCounter);
+
+store.subscribe(() => console.log(store.getState()))
+
+// Dispatch
+store.dispatch(petIncrement());
 
 ReactDOM.render(
   <React.StrictMode>
